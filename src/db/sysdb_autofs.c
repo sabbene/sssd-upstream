@@ -699,6 +699,21 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
     bool in_transaction = false;
     int sret;
     int i;
+    bool invalidate;
+
+    ret = confdb_get_bool(ctx->confdb_ctx,
+                          CONFDB_AUTOFS_CACHE_INVALIDATE,
+                          true, /* default value */
+                          &invalidate);
+
+    if (ret != EOK) {
+        DEBUG(SSSDBG_FATAL_FAILURE, "Failed to determine "CONFDB_AUTOFS_CACHE_INVALIDATE"\n");
+        return ret;
+    }
+
+    if ( invalidate == false ) {
+        return;
+    }
 
     tmp_ctx = talloc_new(NULL);
     if (!tmp_ctx) return ENOMEM;

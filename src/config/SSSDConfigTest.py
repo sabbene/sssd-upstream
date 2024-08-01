@@ -1754,6 +1754,7 @@ class SSSDConfigTestSSSDConfig(unittest.TestCase):
         self.assertTrue(domain.get_option('ldap_id_use_start_tls'))
         self.assertTrue(domain.get_option('ldap_sudo_include_regexp'))
         self.assertTrue(domain.get_option('ldap_autofs_map_master_name'))
+        self.assertTrue(domain.get_option('ldap_autofs_invalidate_cache_on_restart'))
 
         # Negative Test - No such domain
         self.assertRaises(SSSDConfig.NoDomainError, sssdconfig.get_domain, 'nosuchdomain')
