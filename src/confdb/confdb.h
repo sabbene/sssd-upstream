@@ -173,6 +173,7 @@
 /* autofs */
 #define CONFDB_AUTOFS_CONF_ENTRY "config/autofs"
 #define CONFDB_AUTOFS_MAP_NEG_TIMEOUT "autofs_negative_timeout"
+#define CONFDB_AUTOFS_CACHE_INVALIDATE "ldap_autofs_invalidate_cache_on_restart"
 
 /* SSH */
 #define CONFDB_SSH_CONF_ENTRY "config/ssh"

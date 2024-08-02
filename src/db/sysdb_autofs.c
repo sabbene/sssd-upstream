@@ -20,6 +20,8 @@
 
 #include <talloc.h>
 
+#include "confdb/confdb.h"
+
 #include "db/sysdb.h"
 #include "db/sysdb_private.h"
 #include "db/sysdb_autofs.h"
@@ -699,6 +701,8 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
     bool in_transaction = false;
     int sret;
     int i;
+    //struct confdb_ctx *confdb;
+    bool invalidate;
 
     tmp_ctx = talloc_new(NULL);
     if (!tmp_ctx) return ENOMEM;
@@ -707,6 +711,22 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
                              SYSDB_AUTOFS_MAP_OC, SYSDB_NAME);
     if (!filter) {
         ret = ENOMEM;
+        goto done;
+    }
+
+    ret = confdb_get_bool(tmp_ctx,
+                          CONFDB_AUTOFS_CONF_ENTRY,
+                          CONFDB_AUTOFS_CACHE_INVALIDATE,
+                          true, /* default value */
+                          &invalidate);
+
+    if (ret != EOK) {
+        DEBUG(SSSDBG_FATAL_FAILURE, "Failed to determine "CONFDB_AUTOFS_CACHE_INVALIDATE"\n");
+        return ret;
+    }
+
+    if ( invalidate == false ) {
+        ret = EOK;
         goto done;
     }
 

@@ -542,6 +542,7 @@ class SSSDOptions(object):
         'ldap_autofs_entry_value': _('Automounter map entry value attribute'),
         'ldap_autofs_search_base': _('Base DN for automounter map lookups'),
         'ldap_autofs_map_master_name': _('The name of the automount master map in LDAP.'),
+        'ldap_autofs_invalidate_cache_on_restart': _('Should the cache be invalidated when the automount master map is looked up.'),
 
         # [provider/ldap/resolver]
         'ldap_iphost_search_base': _('Base DN for IP hosts lookups'),
