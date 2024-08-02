@@ -32,6 +32,7 @@ struct autofs_ctx {
     struct resp_ctx *rctx;
 
     int neg_timeout;
+    bool invalidate_cache_on_mastermap_reread;
 
     hash_table_t *maps;
 };

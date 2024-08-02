@@ -39,7 +39,22 @@ autofs_get_config(struct autofs_ctx *actx,
     ret = confdb_get_int(cdb, CONFDB_AUTOFS_CONF_ENTRY,
                          CONFDB_AUTOFS_MAP_NEG_TIMEOUT, 15,
                          &actx->neg_timeout);
-    return ret;
+	if (ret != EOK) {
+		DEBUG(SSSDBG_FATAL_FAILURE, "Failed to determine "CONFDB_AUTOFS_CONF_ENTRY"\n");
+	    return ret;
+	}
+
+	ret = confdb_get_bool(cdb, CONFDB_AUTOFS_CONF_ENTRY,
+                          CONFDB_AUTOFS_CACHE_INVALIDATE, true,
+                          &actx->invalidate_cache_on_mastermap_reread);
+
+    if (ret != EOK) {
+        DEBUG(SSSDBG_FATAL_FAILURE, "Failed to determine "CONFDB_AUTOFS_CACHE_INVALIDATE"\n");
+        return ret;
+    }
+
+	return EOK;
+
 }
 
 static errno_t
