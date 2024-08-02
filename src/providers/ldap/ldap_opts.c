@@ -61,7 +61,6 @@ struct dp_option default_basic_opts[] = {
     { "ldap_autofs_search_base", DP_OPT_STRING, NULL_STRING, NULL_STRING },
     { "ldap_autofs_map_master_name", DP_OPT_STRING, { "auto.master" }, NULL_STRING },
     { "ldap_autofs_invalidate_cache_on_restart", DP_OPT_BOOL, BOOL_TRUE, BOOL_TRUE },
-    { "ldap_autofs_invalidate_cache_on_restart", DP_OPT_BOOL, BOOL_TRUE, BOOL_TRUE },
     { "ldap_iphost_search_base", DP_OPT_STRING, NULL_STRING, NULL_STRING },
     { "ldap_ipnetwork_search_base", DP_OPT_STRING, NULL_STRING, NULL_STRING },
     { "ldap_schema", DP_OPT_STRING, { "rfc2307" }, NULL_STRING },
