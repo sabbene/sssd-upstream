@@ -704,7 +704,17 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
     //struct confdb_ctx *confdb;
     bool invalidate;
 
-    ret = confdb_get_bool(tmp_ctx->cdb,
+    tmp_ctx = talloc_new(NULL);
+    if (!tmp_ctx) return ENOMEM;
+
+    filter = talloc_asprintf(tmp_ctx, "(&(objectclass=%s)(%s=*))",
+                             SYSDB_AUTOFS_MAP_OC, SYSDB_NAME);
+    if (!filter) {
+        ret = ENOMEM;
+        goto done;
+    }
+
+    ret = confdb_get_bool(tmp_ctx,
                           CONFDB_AUTOFS_CONF_ENTRY,
                           CONFDB_AUTOFS_CACHE_INVALIDATE,
                           true, /* default value */
@@ -716,16 +726,7 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
     }
 
     if ( invalidate == false ) {
-        goto done;
-    }
-
-    tmp_ctx = talloc_new(NULL);
-    if (!tmp_ctx) return ENOMEM;
-
-    filter = talloc_asprintf(tmp_ctx, "(&(objectclass=%s)(%s=*))",
-                             SYSDB_AUTOFS_MAP_OC, SYSDB_NAME);
-    if (!filter) {
-        ret = ENOMEM;
+        ret = EOK;
         goto done;
     }
 
