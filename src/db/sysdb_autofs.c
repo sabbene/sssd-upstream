@@ -724,6 +724,8 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
         return ret;
     }
 
+    DEBUG(SSSDBG_TRACE_FUNC, "CONFDB_AUTOFS_CACHE_INVALIDATE is set to: %d\n", invalidate);
+
     if ( invalidate == false ) {
         ret = EOK;
         goto done;
