@@ -701,7 +701,6 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
     bool in_transaction = false;
     int sret;
     int i;
-    //struct confdb_ctx *confdb;
     bool invalidate;
 
     tmp_ctx = talloc_new(NULL);
@@ -724,6 +723,8 @@ sysdb_invalidate_autofs_maps(struct sss_domain_info *domain)
         DEBUG(SSSDBG_FATAL_FAILURE, "Failed to determine "CONFDB_AUTOFS_CACHE_INVALIDATE"\n");
         return ret;
     }
+
+    DEBUG(SSSDBG_TRACE_FUNC, "CONFDB_AUTOFS_CACHE_INVALIDATE is set to: %d\n", invalidate);
 
     if ( invalidate == false ) {
         ret = EOK;
